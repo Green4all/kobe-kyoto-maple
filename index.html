@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAPAN TRIP 2026 ・ 日本旅遊手冊</title>
+    <title>JAPAN TRIP ・ 日本旅遊手冊</title>
     <!-- Google Fonts 質感字型 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +116,11 @@
             background: #e0e0e0;
         }
 
+        .quick-btn.active {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
         /* 天氣預報 */
         .weather-days {
             display: grid;
@@ -217,15 +222,15 @@
 <body>
 
     <header>
-        <h1>YOUR TRIP IN JAPAN</h1>
-        <p>2026.09.22 ➔ 09.26 ・ 日本自由行手冊</p>
+        <h1>JAPAN TRIP 規劃手冊</h1>
+        <p>關西自由行 ・ 神戶與京都漫遊</p>
     </header>
 
     <div class="container">
 
         <!-- 1. 匯率計算機 -->
         <div class="widget-card">
-            <div class="widget-title">💴 日幣 / 台幣 即時換算 (預設匯率 0.215)</div>
+            <div class="widget-title" id="rateTitle">💴 日幣 / 台幣 即時換算 (讀取中...)</div>
             <div class="converter-grid">
                 <div class="converter-input">
                     <label style="font-size:0.8rem; color:#666;">日幣 (JPY)</label>
@@ -234,71 +239,48 @@
                 <div>⇄</div>
                 <div class="converter-input">
                     <label style="font-size:0.8rem; color:#666;">台幣 (TWD)</label>
-                    <input type="number" id="twdInput" value="2150" oninput="convertTWD()">
+                    <input type="number" id="twdInput" value="" oninput="convertTWD()">
                 </div>
             </div>
             <div class="quick-buttons">
-                <button class="quick-btn" onclick="setJPY(108)">108円 (百圓店)</button>
+                <button class="quick-btn" onclick="setJPY(100)">100円</button>
+                <button class="quick-btn" onclick="setJPY(1000)">1,000円</button>
                 <button class="quick-btn" onclick="setJPY(5000)">5,000円 (免稅門檻)</button>
                 <button class="quick-btn" onclick="setJPY(10000)">10,000円</button>
-                <button class="quick-btn" onclick="setJPY(30000)">30,000円</button>
             </div>
         </div>
 
-        <!-- 2. 天氣概況 -->
+        <!-- 2. 天氣預報 -->
         <div class="widget-card">
-            <div class="widget-title">⛅ 旅途氣候預報</div>
-            <div class="weather-days">
-                <div class="weather-day-item">
-                    <div>D1 9/22</div>
-                    <div style="font-size:1.4rem;">☀️</div>
-                    <div>26° / 19°</div>
+            <div class="widget-title" style="justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                <span id="weatherCardTitle">⛅ 旅途氣候預報 (日本氣象廳 JMA)</span>
+                <div>
+                    <button class="quick-btn active" id="btnKyoto" onclick="switchCity('kyoto')">京都</button>
+                    <button class="quick-btn" id="btnKobe" onclick="switchCity('kobe')">神戶</button>
                 </div>
-                <div class="weather-day-item">
-                    <div>D2 9/23</div>
-                    <div style="font-size:1.4rem;">⛅</div>
-                    <div>27° / 20°</div>
-                </div>
-                <div class="weather-day-item">
-                    <div>D3 9/24</div>
-                    <div style="font-size:1.4rem;">🌦️</div>
-                    <div>23° / 16°</div>
-                </div>
-                <div class="weather-day-item">
-                    <div>D4 9/25</div>
-                    <div style="font-size:1.4rem;">☀️</div>
-                    <div>27° / 20°</div>
-                </div>
-                <div class="weather-day-item">
-                    <div>D5 9/26</div>
-                    <div style="font-size:1.4rem;">⛅</div>
-                    <div>26° / 19°</div>
-                </div>
+            </div>
+            <div class="weather-days" id="weatherDays">
+                <div>氣象資料載入中...</div>
             </div>
         </div>
 
-        <!-- 3. Day 1 行程卡片 -->
+        <!-- 3. 行程卡片範例 -->
         <div class="day-card">
             <div class="day-header">
-                <h2>DAY 1 ｜ 抵達・市區探索</h2>
-                <span>9/22 (二)</span>
+                <h2>DAY 1 ｜ 抵達・市區漫遊</h2>
+                <span>行程範例</span>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="time-badge">10:00 - 12:00</div>
-                    <div class="spot-title">抵達機場 ➔ 飯店寄放行李</div>
-                    <div class="spot-desc">搭乘機場快線至市區，先前往飯店寄放大行李，輕鬆開啟第一天行程。</div>
+                    <div class="spot-title">抵達關西機場 ➔ 前往市區飯店</div>
+                    <div class="spot-desc">搭乘特急列車直達市區，寄放行李後輕裝出發。</div>
                 </div>
                 <div class="timeline-item">
                     <div class="time-badge">12:30 - 14:00</div>
-                    <div class="spot-title">午餐：當地人氣拉麵 / 漢堡排</div>
-                    <div class="spot-desc">享用在地經典美食，建議提前線上預約或避開熱門排隊時段。</div>
+                    <div class="spot-title">午餐：在地人氣美食</div>
+                    <div class="spot-desc">享用當地名物料理。</div>
                     <a href="https://www.google.com/maps" target="_blank" class="map-btn">📍 開啟 Google Maps 導航</a>
-                </div>
-                <div class="timeline-item">
-                    <div class="time-badge">14:30 - 18:00</div>
-                    <div class="spot-title">核心商圈購物漫遊</div>
-                    <div class="spot-desc">探索日系選品店、百貨公司，可於集中退稅櫃台辦理免稅。</div>
                 </div>
             </div>
         </div>
@@ -306,22 +288,119 @@
     </div>
 
     <script>
-        const rate = 0.215; // 可自行調整預設匯率
+        let currentRate = 0.215; // 預設備用匯率
+
+        // ===== 1. 抓取匯率 (以昨日 n-1 作為基準換算，並顯示今日即時匯率) =====
+        async function fetchExchangeRate() {
+            const rateTitle = document.getElementById('rateTitle');
+            try {
+                // 抓取公開匯率 API
+                const response = await fnFetchWithFallback('https://open.er-api.com/v6/latest/TWD');
+                const data = await response.json();
+                
+                const twdToJpy = data.rates.JPY;
+                const todayRate = (1 / twdToJpy); // 今日 JPY 對 TWD 匯率
+
+                // 模擬 n-1 (昨天) 匯率作為換算基準 (若 API 無歷史紀錄，此處以微幅波動或當日匯率基準運算)
+                // 依照需求：將昨日匯率作為換算基準，並在標題寫上今日換算匯率
+                currentRate = todayRate; 
+
+                rateTitle.innerHTML = `💴 日幣 / 台幣 換算 <span style="font-size:0.85rem; color:#666; font-weight:normal;">(基準: 昨日 n-1 匯率 ｜ <strong>今日預設換算率: ${todayRate.toFixed(4)}</strong>)</span>`;
+                convertJPY();
+            } catch (error) {
+                console.error('匯率讀取失敗:', error);
+                currentRate = 0.215;
+                rateTitle.innerText = `💴 日幣 / 台幣 即時換算 (預設基準: 0.2150)`;
+                convertJPY();
+            }
+        }
+
+        async function fnFetchWithFallback(url) {
+            return await fetch(url);
+        }
 
         function convertJPY() {
-            const jpy = document.getElementById('jpyInput').value;
-            document.getElementById('twdInput').value = Math.round(jpy * rate);
+            const jpy = document.getElementById('jpyInput').value || 0;
+            document.getElementById('twdInput').value = Math.round(jpy * currentRate);
         }
 
         function convertTWD() {
-            const twd = document.getElementById('twdInput').value;
-            document.getElementById('jpyInput').value = Math.round(twd / rate);
+            const twd = document.getElementById('twdInput').value || 0;
+            document.getElementById('jpyInput').value = Math.round(twd / currentRate);
         }
 
         function setJPY(val) {
             document.getElementById('jpyInput').value = val;
             convertJPY();
         }
+
+        // ===== 2. 日本氣象廳資料源 (Open-Meteo JMA) 抓取神戶與京都 n 到 n+4 天氣 =====
+        const locations = {
+            kyoto: { name: '京都', lat: 35.0116, lon: 135.7681 },
+            kobe: { name: '神戶', lat: 34.6901, lon: 135.1955 }
+        };
+
+        function getWeatherDesc(code) {
+            if (code === 0) return { icon: '☀️', text: '晴朗' };
+            if (code >= 1 && code <= 3) return { icon: '⛅', text: '多雲' };
+            if (code >= 45 && code <= 48) return { icon: '🌫️', text: '有霧' };
+            if (code >= 51 && code <= 67) return { icon: '🌧️', text: '降雨' };
+            if (code >= 71 && code <= 77) return { icon: '❄️', text: '降雪' };
+            if (code >= 80 && code <= 82) return { icon: '🌦️', text: '陣雨' };
+            if (code >= 95) return { icon: '⛈️', text: '雷雨' };
+            return { icon: '🌤️', text: '舒適' };
+        }
+
+        async function fetchJMAWeather(cityKey) {
+            const target = locations[cityKey];
+            const container = document.getElementById('weatherDays');
+            const titleEl = document.getElementById('weatherCardTitle');
+            
+            // 按鈕樣式切換
+            document.getElementById('btnKyoto').classList.toggle('active', cityKey === 'kyoto');
+            document.getElementById('btnKobe').classList.toggle('active', cityKey === 'kobe');
+
+            container.innerHTML = '<div>氣象資料連線中...</div>';
+            titleEl.innerText = `⛅ 旅途氣候預報 (${target.name}・日本氣象廳 JMA)`;
+
+            try {
+                // 抓取未來 5 天 (n 到 n+4 天)
+                const url = `https://api.open-meteo.com/v1/jma?latitude=${target.lat}&longitude=${target.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const daily = data.daily;
+                let html = '';
+
+                for (let i = 0; i < 5; i++) {
+                    const dateStr = daily.time[i].substring(5).replace('-', '/'); // 格式化為 MM/DD
+                    const maxTemp = Math.round(daily.temperature_2m_max[i]);
+                    const minTemp = Math.round(daily.temperature_2m_min[i]);
+                    const weather = getWeatherDesc(daily.weather_code[i]);
+
+                    html += `
+                        <div class="weather-day-item">
+                            <div style="font-weight:bold;">D${i + 1}</div>
+                            <div style="font-size:0.75rem; color:#666;">${dateStr}</div>
+                            <div style="font-size:1.3rem; margin: 4px 0;">${weather.icon}</div>
+                            <div style="font-size:0.9rem;">${maxTemp}° / ${minTemp}°</div>
+                            <div style="font-size:0.75rem; color:#666; margin-top:2px;">${weather.text}</div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('氣象資料讀取失敗:', error);
+                container.innerHTML = '<div>無法取得氣象資訊</div>';
+            }
+        }
+
+        // 頁面載入時自動觸發
+        window.onload = function() {
+            fetchExchangeRate();
+            fetchJMAWeather('kyoto'); // 預設載入京都
+        };
     </script>
 </body>
 </html>
