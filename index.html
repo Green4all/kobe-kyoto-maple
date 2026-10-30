@@ -34,11 +34,13 @@
             padding-bottom: 50px;
         }
 
-        /* 頂部 Header */
+/* 頂部 Header 設為背景圖 */
         header {
-            background-color: #111;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('footer-img.jpg');
+            background-size: cover;
+            background-position: center;
             color: #fff;
-            padding: 30px 20px;
+            padding: 60px 20px;
             text-align: center;
         }
 
@@ -402,11 +404,5 @@
             fetchJMAWeather('kyoto'); // 預設載入京都
         };
     </script>
-
-        <!-- 4. 底部放置的圖片 -->
-        <div style="margin-top: 30px; text-align: center;">
-            <img src="footer-img.jpg" alt="Trip Footer Illustration" style="width: 100%; max-width: 800px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-        </div>
-
     </body>
 </html>
