@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAPAN TRIP 2026 ・ 日本旅遊手冊</title>
+    <!-- Google Fonts 質感字型 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f7f6f2;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
+            --text-sub: #666666;
+            --accent-color: #2c3e50;
+            --border-color: #e5e5e5;
+            --highlight: #d4a373;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* 頂部 Header */
+        header {
+            background-color: #111;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        header p {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* 工具卡片 (匯率 / 天氣) */
+        .widget-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .widget-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 匯率計算器樣式 */
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .converter-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: right;
+        }
+
+        .quick-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .quick-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* 天氣預報 */
+        .weather-days {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            text-align: center;
+        }
+
+        .weather-day-item {
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        /* 行程 Card */
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .day-header {
+            background: var(--accent-color);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-header h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .timeline {
+            padding: 20px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 20px;
+            border-left: 2px solid #e0e0e0;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--highlight);
+        }
+
+        .time-badge {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: bold;
+        }
+
+        .spot-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 3px 0;
+        }
+
+        .spot-desc {
+            font-size: 0.92rem;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .map-btn {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #2563eb;
+            text-decoration: none;
+            background: #eff6ff;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .map-btn:hover {
+            background: #dbeafe;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YOUR TRIP IN JAPAN</h1>
+        <p>2026.09.22 ➔ 09.26 ・ 日本自由行手冊</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. 匯率計算機 -->
+        <div class="widget-card">
+            <div class="widget-title">💴 日幣 / 台幣 即時換算 (預設匯率 0.215)</div>
+            <div class="converter-grid">
+                <div class="converter-input">
+                    <label style="font-size:0.8rem; color:#666;">日幣 (JPY)</label>
+                    <input type="number" id="jpyInput" value="10000" oninput="convertJPY()">
+                </div>
+                <div>⇄</div>
+                <div class="converter-input">
+                    <label style="font-size:0.8rem; color:#666;">台幣 (TWD)</label>
+                    <input type="number" id="twdInput" value="2150" oninput="convertTWD()">
+                </div>
+            </div>
+            <div class="quick-buttons">
+                <button class="quick-btn" onclick="setJPY(108)">108円 (百圓店)</button>
+                <button class="quick-btn" onclick="setJPY(5000)">5,000円 (免稅門檻)</button>
+                <button class="quick-btn" onclick="setJPY(10000)">10,000円</button>
+                <button class="quick-btn" onclick="setJPY(30000)">30,000円</button>
+            </div>
+        </div>
+
+        <!-- 2. 天氣概況 -->
+        <div class="widget-card">
+            <div class="widget-title">⛅ 旅途氣候預報</div>
+            <div class="weather-days">
+                <div class="weather-day-item">
+                    <div>D1 9/22</div>
+                    <div style="font-size:1.4rem;">☀️</div>
+                    <div>26° / 19°</div>
+                </div>
+                <div class="weather-day-item">
+                    <div>D2 9/23</div>
+                    <div style="font-size:1.4rem;">⛅</div>
+                    <div>27° / 20°</div>
+                </div>
+                <div class="weather-day-item">
+                    <div>D3 9/24</div>
+                    <div style="font-size:1.4rem;">🌦️</div>
+                    <div>23° / 16°</div>
+                </div>
+                <div class="weather-day-item">
+                    <div>D4 9/25</div>
+                    <div style="font-size:1.4rem;">☀️</div>
+                    <div>27° / 20°</div>
+                </div>
+                <div class="weather-day-item">
+                    <div>D5 9/26</div>
+                    <div style="font-size:1.4rem;">⛅</div>
+                    <div>26° / 19°</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Day 1 行程卡片 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>DAY 1 ｜ 抵達・市區探索</h2>
+                <span>9/22 (二)</span>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time-badge">10:00 - 12:00</div>
+                    <div class="spot-title">抵達機場 ➔ 飯店寄放行李</div>
+                    <div class="spot-desc">搭乘機場快線至市區，先前往飯店寄放大行李，輕鬆開啟第一天行程。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">12:30 - 14:00</div>
+                    <div class="spot-title">午餐：當地人氣拉麵 / 漢堡排</div>
+                    <div class="spot-desc">享用在地經典美食，建議提前線上預約或避開熱門排隊時段。</div>
+                    <a href="https://www.google.com/maps" target="_blank" class="map-btn">📍 開啟 Google Maps 導航</a>
+                </div>
+                <div class="timeline-item">
+                    <div class="time-badge">14:30 - 18:00</div>
+                    <div class="spot-title">核心商圈購物漫遊</div>
+                    <div class="spot-desc">探索日系選品店、百貨公司，可於集中退稅櫃台辦理免稅。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const rate = 0.215; // 可自行調整預設匯率
+
+        function convertJPY() {
+            const jpy = document.getElementById('jpyInput').value;
+            document.getElementById('twdInput').value = Math.round(jpy * rate);
+        }
+
+        function convertTWD() {
+            const twd = document.getElementById('twdInput').value;
+            document.getElementById('jpyInput').value = Math.round(twd / rate);
+        }
+
+        function setJPY(val) {
+            document.getElementById('jpyInput').value = val;
+            convertJPY();
+        }
+    </script>
+</body>
+</html>
