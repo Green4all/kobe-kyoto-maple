@@ -493,6 +493,15 @@
             fetchJMAWeather('kyoto');
         };
     </script>
+// 開啟機票截圖視窗
+        function openFlightModal() {
+            document.getElementById('flightModal').style.display = 'flex';
+        }
+
+        // 關閉機票截圖視窗
+        function closeFlightModal() {
+            document.getElementById('flightModal').style.display = 'none';
+        }
 <!-- 機票截圖彈跳視窗 Modal -->
     <div id="flightModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px;" onclick="closeFlightModal()">
         <div style="background: #fff; padding: 15px; border-radius: 16px; max-width: 500px; width: 100%; position: relative; border: 3px solid #c21f30;" onclick="event.stopPropagation()">
